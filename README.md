@@ -2,7 +2,7 @@ QipsiusTCPDFBundle
 =======================
 
 This bundle is a fork of [WhiteOctoberTCPDFBundle](https://github.com/whiteoctober/WhiteOctoberTCPDFBundle)
-This bundle facilitates easy use of the TCPDF PDF generation library in Symfony >= 3.4 applications.
+This bundle facilitates easy use of the TCPDF PDF generation library in Symfony >= 4.0 applications.
 
 Installation
 ------------
@@ -76,11 +76,22 @@ services:
 Using TCPDF
 -----------
 
-You can obtain the `qipsius.tcpdf` service from the container,
-and then create a new TCPDF object via the service:
+You can inject the `TCPDFController` service into your class
 
 ``` php
-$pdfObj = $container->get("qipsius.tcpdf")->create();
+use Qipsius\TCPDFBundle\Controller\TCPDFController;
+
+class PDFService
+{
+    protected TCPDFController $tcpdf;
+
+    public function __construct(TCPDFController $tcpdf) 
+    {
+        $this->tcpdf = $tcpdf;
+    }
+
+   ...
+}
 ```
 
 From hereon in, you are using a TCPDF object to work with as normal.
